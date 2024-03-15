@@ -1,0 +1,24 @@
+<books-scape-dashboard [showNavigation]="true" [showShopping]="false">
+  <div class="books-page">
+    <header>
+      <div class="search-wrapper">
+        <dom-search-input
+          [initialValue]="initialValue()"
+          (termChanged)="onTermChanged($event)"
+        ></dom-search-input>
+      </div>
+    </header>
+
+    <main class="books-wrapper">
+      @for (book of books(); track book.id) {
+      <div class="book-card-wrapper">
+        <books-scape-book-card
+          [book]="book"
+          (addToShelf)="onAddToShelf($event)"
+        ></books-scape-book-card>
+      </div>
+
+      }
+    </main>
+  </div>
+</books-scape-dashboard>

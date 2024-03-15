@@ -1,0 +1,107 @@
+.mat-mdc-card {
+  height: 100%;
+  border-radius: 0%;
+  box-shadow: none;
+
+  &.book-card {
+    justify-content: space-between;
+    cursor: pointer;
+    // gap: 16px;
+
+    .overlay {
+      opacity: 1;
+    }
+
+    section.book-card-text {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .mat-mdc-card-subtitle {
+        font-style: italic;
+      }
+    }
+
+    .mat-mdc-card-title {
+      font-weight: 550;
+      line-height: 24px;
+      min-height: 48px;
+      font-size: 18px;
+    }
+
+    img.mat-mdc-card-image {
+      margin-left: 0px;
+    }
+
+    .mdc-card__media {
+      align-self: center;
+      margin: 16px;
+    }
+
+    .mdc-card__actions {
+      align-self: center;
+    }
+
+    .image-overlay-container {
+      height: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    &:hover {
+      .image-overlay-container {
+        .mat-mdc-card-actions {
+          background: rgba(63, 81, 181, 0.8);
+          width: 100%;
+          align-self: flex-end;
+        }
+      }
+    }
+  }
+
+  &.overlay-card {
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .mat-mdc-card-content {
+      height: 100%;
+
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+
+      p {
+        width: 90%;
+        margin-top: 42px;
+        height: fit-content;
+      }
+    }
+
+    .mat-mdc-card-actions {
+      justify-content: space-between;
+      width: 90%;
+    }
+  }
+}
+
+.overlay {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(63, 81, 181, 0.6);
+  color: white;
+  font-weight: 550;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
