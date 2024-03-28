@@ -30,15 +30,10 @@ export class BookCardComponent {
   book = input.required<Book>();
   showOverlay = signal(false);
 
-  @Output() addSelected: EventEmitter<Book> = new EventEmitter();
-  @Output() infoSelected: EventEmitter<string> = new EventEmitter();
+  @Output() addToShelf: EventEmitter<Book> = new EventEmitter();
 
   onAddToShelf(value: Book) {
-    this.addSelected.emit(value);
-  }
-
-  onInfo(value: Book) {
-    this.infoSelected.emit(value.id);
+    this.addToShelf.emit(value);
   }
 
   onToggleOverlay() {

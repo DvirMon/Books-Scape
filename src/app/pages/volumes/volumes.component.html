@@ -10,13 +10,11 @@
     </header>
 
     <main class="books-wrapper">
-
       @for (book of books(); track book.id) {
       <div class="book-card-wrapper">
         <books-scape-book-card
           [book]="book"
-          (addSelected)="onAddToShelf($event)"
-          (infoSelected)="onInfo($event)"
+          (addToShelf)="onAddToShelf($event)"
         ></books-scape-book-card>
       </div>
 
