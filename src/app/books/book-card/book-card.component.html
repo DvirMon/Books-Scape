@@ -10,7 +10,7 @@
       <img
         mat-card-image
         [src]="book().imageLinks.thumbnail"
-        width="185"
+        width="190"
         height="280"
         [alt]="book().description"
       />
@@ -31,7 +31,7 @@
       </mat-card-content>
       <mat-card-actions>
         <!-- <button mat-raised-button color="primary">Add to Basket</button> -->
-        <button mat-icon-button>
+        <button mat-icon-button (click)="onInfo(book())">
           <mat-icon fontIcon="info"></mat-icon>
         </button>
         <button (click)="onAddToShelf(book())" mat-icon-button>
