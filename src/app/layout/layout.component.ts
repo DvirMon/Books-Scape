@@ -1,5 +1,11 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, Signal, inject, input } from '@angular/core';
+import { NgIf, TitleCasePipe, UpperCasePipe } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Signal,
+  inject,
+  input,
+} from '@angular/core';
 
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButton, MatIconButton } from '@angular/material/button';
@@ -10,23 +16,22 @@ import {
   MatSidenavContainer,
   MatSidenavContent,
 } from '@angular/material/sidenav';
-import { MatToolbar } from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 
-import { NgIf, TitleCasePipe, UpperCasePipe } from '@angular/common';
-import { AppStore } from '../../store/store';
+import { AppStore } from '../store/store';
 
 @Component({
-  selector: 'books-scape-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'],
+  selector: 'books-scape-layout',
+  templateUrl: './layout.component.html',
+  styleUrls: ['./layout.component.scss'],
   standalone: true,
   imports: [
     NgIf,
     RouterModule,
     TitleCasePipe,
     UpperCasePipe,
-    MatToolbar,
+    MatToolbarModule,
     MatButton,
     MatSidenav,
     MatNavList,
@@ -37,14 +42,19 @@ import { AppStore } from '../../store/store';
     MatIconButton,
     MatBadgeModule,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent {
+  
+export class LayoutComponent {
   #store = inject(AppStore);
 
-  showNavigation = input<boolean>(false);
+  showNavigation = input<boolean>(true);
   showShopping = input<boolean>(true);
+  showBookshelf = input<boolean>(false);
 
-  protected readonly title: string = 'the books scape';
+  public readonly routes: string[] = ['filters', 'table'];
+
+  public readonly title : string  = 'the books scape';
 
   public readonly shelfSize: Signal<string> = this.#store.shelfSize;
 }

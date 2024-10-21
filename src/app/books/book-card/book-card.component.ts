@@ -1,10 +1,11 @@
 import { NgIf, NgOptimizedImage } from '@angular/common';
-import { Component, EventEmitter, Output, input, signal } from '@angular/core';
 import {
-  MatButton,
-  MatIconButton,
-  MatMiniFabButton,
-} from '@angular/material/button';
+  Component,
+  input,
+  output,
+  signal
+} from '@angular/core';
+import { MatIconButton } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIcon } from '@angular/material/icon';
 import { TruncatePipe } from '../../shared/pipes/truncate.pipe';
@@ -17,8 +18,6 @@ import { Book } from '../books';
     NgIf,
     NgOptimizedImage,
     MatCardModule,
-    MatButton,
-    MatMiniFabButton,
     MatIconButton,
     MatIcon,
     TruncatePipe,
@@ -30,10 +29,15 @@ export class BookCardComponent {
   book = input.required<Book>();
   showOverlay = signal(false);
 
-  @Output() addToShelf: EventEmitter<Book> = new EventEmitter();
+  addSelected = output<Book>();
+  infoSelected = output<string>();
 
   onAddToShelf(value: Book) {
-    this.addToShelf.emit(value);
+    this.addSelected.emit(value);
+  }
+
+  onInfo(value: Book) {
+    this.infoSelected.emit(value.id);
   }
 
   onToggleOverlay() {

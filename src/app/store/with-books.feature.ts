@@ -3,25 +3,41 @@ import { withEntities } from '@ngrx/signals/entities';
 
 import {
   Entity,
-  Loader,
+  EntityLoader,
   LoaderService,
   createLoader,
   loadEntities,
-} from '@dom';
+  loadSlice,
+  onLoadCollection,
+  onUpdateCollection
+} from '@dom/helpers';
 import { Book } from '../books/books';
 
-const COLLECTION = 'books';
+const COLLECTION = 'volumes';
+const SLICE = 'volInfo';
 
-type BooksLoader = Loader<string, Entity, 'loadBooks'>;
 
-export function withBooks(Loader: LoaderService<BooksLoader>) {
+export function withBooks(
+  Loader: LoaderService<
+    EntityLoader<string, Entity, 'loadVolumes' | 'loadVolumes'> 
+  >
+) {
   return signalStoreFeature(
     withEntities({ entity: type<Book>(), collection: COLLECTION }),
-    withMethods((state) => {
-      const loader = createLoader(Loader, 'loadBooks');
-      return {
-        loadBooks: loadEntities(loader, state, COLLECTION),
-      };
-    })
+    withMethods((state) => ({
+      loadVolumes: loadEntities(
+        createLoader(Loader, 'loadVolumes'),
+        onLoadCollection(state, COLLECTION)
+      ),
+      updateVolumes: loadEntities(
+        createLoader(Loader, 'loadVolumes'),
+        onUpdateCollection(state, COLLECTION)
+      ),
+      loadVolumeInfo: loadSlice(
+        createLoader(Loader, 'loadVolumeInfo'),
+        state,
+        SLICE
+      ),
+    }))
   );
 }

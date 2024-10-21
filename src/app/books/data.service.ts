@@ -1,27 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Book, Item, VolumeInfo } from './books';
-import { BooksHttpService } from './http.service';
-
-export interface LoadResponse {
-  content: Book[];
-}
+import { VolumesHttpService } from './http.service';
+import { Info } from './info.t';
 
 @Injectable({
   providedIn: 'root',
 })
-export class BooksDataService {
+export class VolumesDataService {
+  constructor(private bookHttp: VolumesHttpService) {}
 
-  constructor(private bookHttp: BooksHttpService) {}
-
-  // function to fetch books from Google Books API}
-  public loadBooks(query?: string): Observable<LoadResponse> {
-    return this.bookHttp.fetchBooks(query as string).pipe(
+  // Fetch books from Google Books API
+  public loadVolumes(query: string): Observable<Book[] | Book> {
+    return this.bookHttp.fetchVolumes(query as string).pipe(
       map((items) => this.mapItemsToBooks(items)),
-      map((books) => this.filterBooksWithImages(books)),
-      map((books: Book[]) => ({
-        content: books,
-      }))
+      map((books) => this.filterBooksWithImages(books))
     );
   }
 
@@ -46,5 +39,9 @@ export class BooksDataService {
       imageLinks: volumeInfo.imageLinks,
       // categories: volumeInfo.categories
     };
+  }
+
+  public loadVolumeInfo(volId: string): Observable<Info> {
+    return this.bookHttp.fetchVolumeInfo(volId);
   }
 }

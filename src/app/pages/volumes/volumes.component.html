@@ -1,24 +1,28 @@
-<books-scape-dashboard [showNavigation]="true" [showShopping]="false">
+<books-scape-layout [showShopping]="false" [showBookshelf]="true">
   <div class="books-page">
     <header>
       <div class="search-wrapper">
-        <dom-search-input
+
+        <dom-form-search-input
+          [control]="searchControl"
           [initialValue]="initialValue()"
-          (termChanged)="onTermChanged($event)"
-        ></dom-search-input>
+          (valueChanged)="onValueChanged($event)"
+        ></dom-form-search-input>
+        
       </div>
     </header>
 
     <main class="books-wrapper">
-      @for (book of books(); track book.id) {
+      @for (book of books(); track book.id) { @defer {
+
       <div class="book-card-wrapper">
         <books-scape-book-card
           [book]="book"
-          (addToShelf)="onAddToShelf($event)"
+          (addSelected)="onAddToShelf($event)"
+          (infoSelected)="onInfo($event)"
         ></books-scape-book-card>
       </div>
-
-      }
+      } }
     </main>
   </div>
-</books-scape-dashboard>
+</books-scape-layout>

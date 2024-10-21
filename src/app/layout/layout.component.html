@@ -1,0 +1,46 @@
+<mat-sidenav-container class="sidenav-container h-full">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport> </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <div class="toolbar-content">
+        <span class="brand">{{ title | titlecase }}</span>
+        @if(showShopping()){
+        <button class="shopping" mat-button [routerLink]="'/'">
+          {{ 'continue browsing' | uppercase }}
+        </button>
+        }
+      </div>
+    </mat-toolbar>
+
+    @if(showNavigation()) {
+    <mat-toolbar color="primary">
+      <div class="toolbar-content">
+        <mat-nav-list>
+          @for (route of routes; track $index) {
+
+          <span mat-list-item [routerLink]="'/' + route">{{
+            route | titlecase
+          }}</span>
+          }
+        </mat-nav-list>
+
+        @if(showBookshelf()) {
+
+        <button
+          class="bookshelf-btn"
+          routerLink="bookshelf"
+          mat-icon-button
+          matBadgeSize="large"
+          [matBadge]="shelfSize()"
+          matBadgeColor="primary"
+        >
+          <mat-icon fontIcon="shelves"></mat-icon>
+        </button>
+
+        }
+      </div>
+    </mat-toolbar>
+    }
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
